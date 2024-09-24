@@ -68,55 +68,98 @@
 
             }
         }
-        public void binarySearch()
+        public void Xuat2()
+{
+    Console.WriteLine("Mã sách = " + this.MaSach);
+    Console.WriteLine("Tên sách = " + this.TenSach);
+    Console.WriteLine("Tác giả = " + this.TacGia);
+    Console.WriteLine("Năm xuất bản = " + this.NamXB);
+    Console.WriteLine();
+}
+
+public void SapXepMang_BubbleSort()
+{
+    int n = a.Length;
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
         {
-            Console.Write("nhap ma sach can tim ");
-
-            for (int i = 0; i < a.Length; i++)
+            if (a[j].maSach > a[j + 1].maSach)
             {
-
+                // Hoán đổi arr[j] và arr[j+1]
+                int temp = a[j].maSach;
+                a[j].maSach = a[j + 1].maSach;
+                a[j + 1].maSach = temp;
             }
         }
-        public void InsertBook()
+    }
+}
+public void TimSachTheoMa()
+{
+    Console.Write("Nhập mã sách cần tìm: ");
+    int maSachCanTim = int.Parse(Console.ReadLine());
+
+    SapXepMang_BubbleSort();
+    // Sử dụng tìm kiếm nhị phân (giả sử mảng đã được sắp xếp)
+    int left = 0;
+    int right = a.Length - 1;
+    while (left <= right)
+    {
+        int mid = (left + right) / 2;
+        if (a[mid].MaSach == maSachCanTim)
         {
-            Sach[] b = new Sach[a.Length + 1];
-            for (int i = 0; i < a.Length; i++)
-            {
-                b[i] = new Sach();  // Initialize the Sach object before copying
-                b[i].TacGia = this.a[i].TacGia;
-                b[i].MaSach = this.a[i].MaSach;
-                b[i].TenSach = this.a[i].TenSach;
-                b[i].NamXB = this.a[i].NamXB;
-            }
-
-            b[a.Length] = new Sach();
-            int intbook;
-            Console.Write("Nhap ma sach : ");
-            intbook = Convert.ToInt32(Console.ReadLine());
-            while (TonTai(intbook, b.Length - 1))
-            {
-                Console.Write("ma sach da ton tai nhap lai  : ");
-                intbook = Convert.ToInt32(Console.ReadLine());
-            }
-            b[a.Length].MaSach = intbook;
-
-            Console.Write("Nhap ten sach : ");
-            b[a.Length].TenSach = Console.ReadLine();
-
-            Console.Write("Nhap ten tac gia : ");
-            b[a.Length].TacGia = Console.ReadLine();
-
-            Console.Write("Nhap nam xuat ban : ");
-            b[a.Length].NamXB = Convert.ToInt32(Console.ReadLine());
-            for (int i = 0; i < b.Length; i++)
-            {
-                Console.WriteLine("ma sach = " + b[i].MaSach);
-                Console.WriteLine("ten sach = " + b[i].TenSach);
-                Console.WriteLine("tac gia  = " + b[i].TacGia);
-                Console.WriteLine("Nam xuat ban = " + b[i].NamXB);
-
-            }
+            a[mid].Xuat2();
+            return;
         }
+        else if (a[mid].MaSach < maSachCanTim)
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid - 1;
+        }
+    }
+    Console.WriteLine("Không tìm thấy sách có mã sách {0}", maSachCanTim);
+}
+public void InsertBook()
+{
+    Sach[] b = new Sach[a.Length + 1];
+    for (int i = 0; i < a.Length; i++)
+    {
+        b[i] = new Sach();  // Initialize the Sach object before copying
+        b[i].TacGia = this.a[i].TacGia;
+        b[i].MaSach = this.a[i].MaSach;
+        b[i].TenSach = this.a[i].TenSach;
+        b[i].NamXB = this.a[i].NamXB;
+    }
+
+    b[a.Length] = new Sach();
+
+    int intbook;
+    Console.Write("Nhập mã sách : ");
+    intbook = int.Parse(Console.ReadLine());
+    while (TonTai(intbook, b.Length - 1))
+    {
+        Console.Write("Mã sách đã tồn tại, vui lòng nhập lại  : ");
+        intbook = int.Parse(Console.ReadLine());
+    }
+    b[a.Length].MaSach = intbook;
+
+    Console.Write("Nhập tên sách : ");
+    b[a.Length].TenSach = Console.ReadLine();
+
+    Console.Write("Nhập tên tác giả : ");
+    b[a.Length].TacGia = Console.ReadLine();
+
+    Console.Write("Nhập năm xuất bản : ");
+    b[a.Length].NamXB = int.Parse(Console.ReadLine());
+    Console.WriteLine();
+    for (int i = 0; i < b.Length; i++)
+    {
+        b[i].Xuat2();
+    }
+}
         private bool TonTai(int msx, int vt)
         {
             for (int i = 0; i < vt; i++)
